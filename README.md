@@ -1,91 +1,97 @@
-# Personal Manager - 个人管理系统
+# Personal Manager
 
-一个基于 Vue 3 + FastAPI 的个人管理系统，包含学习管理、减肥追踪、财务管理和待办事项等功能。
+A personal management system built with Vue 3 + FastAPI, including learning management, weight loss tracking, finance management, and todo tasks.
 
-## 功能特性
+## Features
 
-- **学习管理**: 添加学习项目，记录预计时间和累计学习时长
-- **减肥追踪**: 记录每日体重，查看体重变化趋势图表
-- **财务管理**: 记录收支，查看月度统计
-- **待办事项**: 添加、完成和管理日常任务
-- **用户认证**: 登录/注册系统
+- **Learning Management**: Add learning projects, track estimated time and accumulated study duration
+- **Weight Loss Tracking**: Record daily weight, view weight change trend chart
+- **Finance Management**: Track income and expenses, view monthly statistics
+- **Todo Tasks**: Add, complete, and manage daily tasks
+- **User Authentication**: Login/Register system
 
-## 技术栈
+## Tech Stack
 
-### 前端
+### Frontend
 - Vue 3 + Vite
-- Element Plus 组件库
+- Element Plus
 - Vue Router
 - Axios
 
-### 后端
+### Backend
 - FastAPI
 - SQLAlchemy
 - SQLite
-- JWT 认证
+- JWT Authentication
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Prerequisites
 
 - Python 3.8+
 - Node.js 18+
 
-### 在 Windows 上运行
+---
 
-#### 方法一：使用构建脚本（推荐）
+## Running on Windows (via Trae)
 
-1. 打开命令提示符 (CMD) 或 PowerShell
+### Step 1: Clone the project
 
-2. 克隆项目到本地：
 ```bash
 git clone https://github.com/Casperdawn/personal-manager.git
 cd personal-manager
 ```
 
-3. 运行构建脚本：
-```bash
-build.bat
-```
+### Step 2: Install Node.js (if not installed)
 
-4. 在浏览器中访问：http://localhost:8000
+If you get "npm is not recognized", you need to install Node.js first:
 
-5. 使用默认账号登录：
-   - 用户名：hzs
-   - 密码：123
+1. Download Node.js from https://nodejs.org/ (LTS version recommended)
+2. Run the installer and make sure to check "Add to PATH"
+3. Restart Trae terminal
 
-#### 方法二：手动运行
+### Step 3: Build frontend
 
-1. 克隆项目：
-```bash
-git clone https://github.com/Casperdawn/personal-manager.git
-cd personal-manager
-```
-
-2. 安装前端依赖并构建：
 ```bash
 cd frontend
 npm install
 npm run build
+cd ..
 ```
 
-3. 安装后端依赖：
+### Step 4: Set up Python virtual environment
+
 ```bash
-cd ../backend
+cd backend
 python -m venv venv
 venv\Scripts\activate
+```
+
+### Step 5: Install Python dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-4. 初始化数据库并启动服务：
+### Step 6: Initialize database
+
 ```bash
 python init_sample_data.py
+```
+
+### Step 7: Start the server
+
+```bash
 python main.py
 ```
 
-5. 在浏览器中访问：http://localhost:8000
+### Step 8: Access the application
 
-### 在 macOS/Linux 上运行
+Open browser and visit: **http://localhost:8000**
+
+---
+
+## Running on macOS/Linux
 
 ```bash
 git clone https://github.com/Casperdawn/personal-manager.git
@@ -93,33 +99,77 @@ cd personal-manager
 ./build.sh
 ```
 
-## 项目结构
+---
+
+## Running on Windows (Alternative - using build.bat)
+
+```bash
+git clone https://github.com/Casperdawn/personal-manager.git
+cd personal-manager
+build.bat
+```
+
+---
+
+## Project Structure
 
 ```
 personal-manager/
-├── backend/                  # 后端代码
-│   ├── app/                  # 应用核心
-│   │   ├── core/             # 配置和数据库
-│   │   ├── models/           # 数据模型
-│   │   ├── routes/           # API 路由
-│   │   ├── schemas/          # 数据验证
-│   │   └── utils/            # 工具函数
-│   ├── main.py               # 入口文件
-│   └── requirements.txt      # Python 依赖
-├── frontend/                 # 前端代码
-│   ├── src/                  # 源代码
-│   │   ├── views/            # 页面组件
-│   │   ├── api/              # API 调用
-│   │   └── router/           # 路由配置
-│   └── package.json          # Node.js 依赖
-├── build.bat                 # Windows 构建脚本
-└── build.sh                  # macOS/Linux 构建脚本
+├── backend/                  # Backend code
+│   ├── app/                  # Application core
+│   │   ├── core/             # Configuration and database
+│   │   ├── models/           # Data models
+│   │   ├── routes/           # API routes
+│   │   ├── schemas/          # Data validation
+│   │   └── utils/            # Utility functions
+│   ├── main.py               # Entry file
+│   └── requirements.txt      # Python dependencies
+├── frontend/                 # Frontend code
+│   ├── src/                  # Source code
+│   │   ├── views/            # Page components
+│   │   ├── api/              # API calls
+│   │   └── router/           # Route configuration
+│   └── package.json          # Node.js dependencies
+├── build.bat                 # Windows build script
+├── build.sh                  # macOS/Linux build script
+└── README.md                 # Documentation
 ```
 
-## 默认账号
+## Default Account
 
-- 用户名：hzs
-- 密码：123
+- Username: **hzs**
+- Password: **123**
+
+## Troubleshooting
+
+### "npm is not recognized"
+
+1. Install Node.js from https://nodejs.org/
+2. Restart your terminal
+3. Verify installation: `node --version` and `npm --version`
+
+### Python virtual environment activation fails
+
+```bash
+# Try this if venv\Scripts\activate doesn't work
+.\venv\Scripts\activate
+```
+
+### Port 8000 is already in use
+
+```bash
+# Find and kill the process using port 8000 (Windows)
+netstat -ano | findstr :8000
+taskkill /PID <PID> /F
+```
+
+### Slow npm/pip installation
+
+```bash
+# Use Chinese mirrors
+npm config set registry https://registry.npmmirror.com
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
 
 ## License
 
