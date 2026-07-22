@@ -15,13 +15,25 @@ def get_todos(
     skip: int = 0,
     limit: int = 100,
     completed: Optional[bool] = None,
+    priority: Optional[int] = None,
+    year: Optional[int] = None,
+    month: Optional[int] = None,
+    day: Optional[int] = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     query = db.query(Todo).filter(Todo.user_id == current_user.id)
     if completed is not None:
         query = query.filter(Todo.completed == completed)
-    todos = query.offset(skip).limit(limit).all()
+    if priority is not None:
+        query = query.filter(Todo.priority == priority)
+    if year is not None:
+        query = query.filter(Todo.date.like(f"{year}-%"))
+    if month is not None:
+        query = query.filter(Todo.date.like(f"%-{month:02d}-%"))
+    if day is not None:
+        query = query.filter(Todo.date.like(f"%-{day:02d}"))
+    todos = query.order_by(Todo.date.desc(), Todo.created_at.desc()).offset(skip).limit(limit).all()
     return todos
 
 
@@ -48,6 +60,10 @@ def create_todo(
         title=todo.title,
         content=todo.content,
         priority=todo.priority,
+        date=todo.date,
+        completed=todo.completed,
+        start_time=todo.start_time,
+        duration=todo.duration,
     )
     db.add(new_todo)
     db.commit()
@@ -73,6 +89,8 @@ def update_todo(
         todo.completed = todo_update.completed
     if todo_update.priority is not None:
         todo.priority = todo_update.priority
+    if todo_update.date is not None:
+        todo.date = todo_update.date
     db.commit()
     db.refresh(todo)
     return todo

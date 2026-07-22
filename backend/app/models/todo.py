@@ -12,5 +12,8 @@ class Todo(Base):
     content = Column(String(1000), nullable=True)
     completed = Column(Boolean, default=False)
     priority = Column(Integer, default=1)
+    date = Column(String(20), nullable=False)
+    start_time = Column(String(10), nullable=True)
+    duration = Column(Integer, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
